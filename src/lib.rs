@@ -30,12 +30,14 @@ type Model = i32;
 // `Msg` describes the different events you can modify state with.
 enum Msg {
     Increment,
+    Decrement,
 }
 
 // `update` describes how to handle each `Msg`.
 fn update(msg: Msg, model: &mut Model, _: &mut impl Orders<Msg>) {
     match msg {
         Msg::Increment => *model += 1,
+        Msg::Decrement => *model -= 1,
     }
 }
 
@@ -49,8 +51,10 @@ fn update(msg: Msg, model: &mut Model, _: &mut impl Orders<Msg>) {
 fn view(model: &Model) -> Node<Msg> {
     div![
         "This is a counter: ",
-        C!["counter"],
-        button![model, ev(Ev::Click, |_| Msg::Increment),],
+        C!["main"],
+        button!["CLICK ME TO ADD 1", ev(Ev::Click, |_| Msg::Increment),],
+        button!["CLICK ME TO SUBTRACT 1", ev(Ev::Click, |_| Msg::Decrement),],
+        div![h2!["This is the overall count:        ", model]]
     ]
 }
 
